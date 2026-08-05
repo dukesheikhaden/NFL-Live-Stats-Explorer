@@ -40,8 +40,6 @@ Other useful entry points:
 | Athletes | `.../seasons/{year}/athletes` |
 | Specific game summary | `site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event={gameId}` |
 
-> Note: `sports.core.api.espn.com` (the "core" API used above) returns deeply linked `$ref` resources — good for exploring the full data graph. `site.api.espn.com` (the "site" API) returns flatter, more consumable JSON and is usually faster to build against for a live scores/stats app. Most projects like this end up using `site.api.espn.com` for the day-to-day calls and dip into the core API only for things the site API doesn't expose.
-
 ## How it works
 
 1. Fetch the current week's scoreboard to list live/upcoming/completed games.
@@ -51,10 +49,8 @@ Other useful entry points:
 
 ## Tech stack
 
-- [Language/framework — e.g. Python + Flask / Node.js + Express / React]
+- [Language/framework — JavaScript, HTML]
 - `requests` / `fetch` for HTTP calls
-- [Your storage choice, if any — SQLite, in-memory, etc.]
-- [Your frontend, if any]
 
 ## Example usage
 
@@ -77,13 +73,6 @@ cd nfl-live-stats
 [install steps]
 [run steps]
 ```
-
-## Roadmap / ideas
-
-- [ ] Push/websocket updates instead of polling
-- [ ] Historical trend charts per team/player
-- [ ] Fantasy football scoring overlay
-- [ ] Combine with the NL-to-SQL project dataset for natural-language querying of live stats
 
 ## Disclaimer
 
