@@ -1,6 +1,6 @@
-NFL Live Stats Explorer
+# NFL Live Stats Explorer
 
-A lightweight tool that pulls live scores, game stats, and player stats for the NFL using ESPN's public sports API — no API key required.
+A lightweight, browser-based tool that pulls live scores, game stats, and player stats for the NFL using ESPN's public sports API. Built with vanilla JavaScript and HTML — no backend, no framework, no API key.
 
 ## What it does
 
@@ -10,68 +10,20 @@ A lightweight tool that pulls live scores, game stats, and player stats for the 
 - **Standings** — division/conference standings by season and week
 - **Team info** — rosters, franchise history, logos
 
-## Data source
+## How it will work
 
-Built on ESPN's `sports.core.api.espn.com` endpoint tree, which is unofficial and undocumented but widely used by the sports-dev community. The API is structured as a graph of resources connected by `$ref` links rather than one flat endpoint — you start at the league level and follow links down to the data you need.
-
-```
-League (NFL)
- └─ Season (e.g. 2025)
-     └─ Season Type (Preseason / Regular / Postseason / Off Season)
-         └─ Week
-             └─ Events (games)
-                 ├─ Competitions → Scores, Status
-                 ├─ Box Score → Team & Player Stats
-                 └─ Play-by-Play
-```
-
-Root endpoint:
-```
-GET http://sports.core.api.espn.com/v2/sports/football/leagues/nfl
-```
-
-Other useful entry points:
-
-| Data | Endpoint pattern |
-|---|---|
-| Current scoreboard | `site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard` |
-| Teams | `.../seasons/{year}/teams` |
-| Standings | `.../seasons/{year}/types/{type}/groups/{id}/standings` |
-| Athletes | `.../seasons/{year}/athletes` |
-| Specific game summary | `site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event={gameId}` |
-
-## How it works
-
-1. Fetch the current week's scoreboard to list live/upcoming/completed games.
-2. For a selected game, fetch the game summary endpoint to get box score, team stats, and player stats.
-3. Poll the scoreboard/summary endpoints on an interval (e.g. every 30–60s) while a game is live to keep scores current.
-4. Cache static data (teams, rosters, historical box scores) locally to avoid redundant calls.
-
-## Tech stack
-
-- [Language/framework — JavaScript, HTML]
-- `requests` / `fetch` for HTTP calls
-
-## Example usage
-
-```
-GET /scores?week=current
-→ Returns all games for the current week with live scores and status
-
-GET /game/{gameId}/stats
-→ Returns box score and team stats for a specific game
-
-GET /player/{athleteId}/stats?season=2025
-→ Returns a player's season stats
-```
+1. The page will fetch ESPN's scoreboard endpoint to list live/upcoming/completed games for the current week.
+2. When a user selects a game, the page will fetch that game's summary data to pull box score, team stats, and player stats.
+3. While a game is live, the page will periodically re-fetch scores to keep them current.
+4. Static data (teams, rosters) will be cached client-side to avoid redundant calls.
 
 ## Setup
 
 ```bash
 git clone <repo-url>
 cd nfl-live-stats
-[install steps]
-[run steps]
+# open index.html directly, or serve locally:
+npx serve .
 ```
 
 ## Disclaimer
