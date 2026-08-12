@@ -1,8 +1,8 @@
 class ApiClient {
   constructor() {
-    this.functionsBase = "/.netlify/functions";
+    this.base = "https://site.api.espn.com/apis/site/v2/sports/football/nfl";
   }
- 
+
   async getJSON(url) {
     try {
       const res = await fetch(url);
@@ -15,22 +15,30 @@ class ApiClient {
       throw err;
     }
   }
- 
+
   getScoreboard(week, seasontype, year) {
     const params = [];
     if (week) params.push(`week=${week}`);
     if (seasontype) params.push(`seasontype=${seasontype}`);
     if (year) params.push(`year=${year}`);
- 
+
     const query = params.length > 0 ? `?${params.join("&")}` : "";
-    return this.getJSON(`${this.functionsBase}/scoreboard${query}`);
+    return this.getJSON(`${this.base}/scoreboard${query}`);
   }
- 
-  getPlays(eventId, competitionId) {
-    return this.getJSON(`${this.functionsBase}/plays?eventId=${eventId}&competitionId=${competitionId}`);
+
+  async getPlays(eventId) {
+    const data = await this.getJSON(`${this.base}/summary?event=${eventId}`);
+    return { items: data.plays || [] };
   }
- 
-  getGameStatus(eventId, competitionId) {
-    return this.getJSON(`${this.functionsBase}/game-status?eventId=${eventId}&competitionId=${competitionId}`);
+
+  async getGameStatus(eventId) {
+    const data = await this.getJSON(`${this.base}/summary?event=${eventId}`);
+    const competition = (data.header && data.header.competitions && data.header.competitions[0]) || {};
+    const status = competition.status || {};
+    return {
+      type: status.type || {},
+      period: status.period,
+      displayClock: status.displayClock,
+    };
   }
 }

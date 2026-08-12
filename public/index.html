@@ -10,17 +10,17 @@
     <header class="app-header">
         <h1>NFL Live Stats Explorer</h1>
         <div class="controls">
+            <label for="year-select">Season</label>
+            <select id="year-select"></select>
             <label for="week-select">Week</label>
-            <select id="week-select">
-                <option value="">Today</option>
-            </select>
+            <select id="week-select"></select>
             <button id="refresh-btn">Refresh</button>
         </div>
     </header>
  
     <main>
         <section id="scoreboard" class="scoreboard">
-            <p>Loading games...</p>
+            <p class="message">Loading games...</p>
         </section>
  
         <section id="game-detail" class="game-detail hidden">
@@ -34,4 +34,5 @@
     <script src="espn.js"></script>
     <script src="app.js"></script>
 </body>
+</html>
 </html>
