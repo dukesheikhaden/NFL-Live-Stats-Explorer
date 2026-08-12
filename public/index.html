@@ -3,9 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>NFL Live Stats Explorer</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+    <header class="app-header">
+        <h1>NFL Live Stats Explorer</h1>
+        <div class="controls">
+            <label for="week-select">Week</label>
+            <select id="week-select">
+                <option value="">Today</option>
+            </select>
+            <button id="refresh-btn">Refresh</button>
+        </div>
+    </header>
+ 
+    <main>
+        <section id="scoreboard" class="scoreboard">
+            <p>Loading games...</p>
+        </section>
+ 
+        <section id="game-detail" class="game-detail hidden">
+            <button id="close-detail">Back to scoreboard</button>
+            <h2 id="detail-title"></h2>
+            <p id="detail-status"></p>
+            <div id="detail-plays"></div>
+        </section>
+    </main>
+ 
+    <script src="espn.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
