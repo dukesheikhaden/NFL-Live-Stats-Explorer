@@ -1,6 +1,6 @@
 # NFL Live Stats Explorer
 
-A lightweight, browser-based tool that pulls live scores, game stats, and player stats for the NFL using ESPN's public sports API. Built with vanilla JavaScript and HTML — no backend, no framework, no API key.
+Currently developing a lightweight, browser-based tool that pulls live scores, game stats, and player stats for the NFL using ESPN's public sports API. Built with vanilla JavaScript and HTML — no backend, no framework, no API key.
 
 ## What it does
 
