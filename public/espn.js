@@ -20,19 +20,23 @@ class ApiClient {
     const params = [];
     if (week) params.push(`week=${week}`);
     if (seasontype) params.push(`seasontype=${seasontype}`);
-    if (year) params.push(`year=${year}`);
+    if (year) params.push(`dates=${year}`);
 
     const query = params.length > 0 ? `?${params.join("&")}` : "";
     return this.getJSON(`${this.base}/scoreboard${query}`);
   }
 
+  getSummary(eventId) {
+    return this.getJSON(`${this.base}/summary?event=${eventId}`);
+  }
+
   async getPlays(eventId) {
-    const data = await this.getJSON(`${this.base}/summary?event=${eventId}`);
+    const data = await this.getSummary(eventId);
     return { items: data.plays || [] };
   }
 
   async getGameStatus(eventId) {
-    const data = await this.getJSON(`${this.base}/summary?event=${eventId}`);
+    const data = await this.getSummary(eventId);
     const competition = (data.header && data.header.competitions && data.header.competitions[0]) || {};
     const status = competition.status || {};
     return {
